@@ -1,0 +1,130 @@
+@mixin maxWidthRow {
+	margin-left: 0;									//removes foundation column margins on sides of screen
+	margin-right: 0;								//removes foundation column margins on sides of screen
+	max-width: 100%;								//removes foundation column margins on sides of screen
+}
+
+@mixin vertical-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+// HEADER
+
+.header {
+	@include maxWidthRow;
+	background: black;
+	background-image: url(../img/simple_dashed.png);
+	background-repeat: repeat;
+	height: 100%;
+	padding-bottom: rem-calc(50px);
+	position: relative;
+	
+	.logo {
+		@include vertical-align;
+	}
+}
+
+.downArrow {
+	display: block;
+	max-width: rem-calc(25px);
+	position: absolute;
+	top: 95%;
+	left: 50%;
+
+	img {
+		transform: translate(-50%, -50%);
+		animation: blink 1s;
+		animation-iteration-count: infinite;
+	}
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.1;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+
+// PORTFOLIO
+
+.portfolio {
+	padding-bottom: rem-calc(40px);
+
+	.row {
+		@include maxWidthRow;
+	}
+
+	img {
+		border-radius: 2px;
+	}
+}
+
+.portfolioPiece {
+	padding-top: rem-calc(40px);
+}
+
+.thumbnail {
+	background-image: url(../img/simple_dashed.png);
+	background-repeat: repeat;
+	padding-top: rem-calc(15px);
+	padding-bottom: rem-calc(15px);
+}
+
+.reveal {
+	background-image: url(../img/simple_dashed.png);
+	background-repeat: repeat;
+	color: white;
+	padding-top: rem-calc(40px);
+
+	.fullsize {
+		padding-top: rem-calc(20px);
+		padding-bottom: rem-calc(40px);
+	}
+}
+
+// ABOUT/CONTACT
+
+.about {
+	@include maxWidthRow;
+	background: black;
+	background-image: url(../img/simple_dashed.png);
+	background-repeat: repeat;
+	color: white;
+	padding-top: rem-calc(40px);
+	padding-bottom: rem-calc(40px);
+
+	p {
+		margin-top: rem-calc(20px);
+	}
+}
+
+.headshot {
+	margin-top: rem-calc(20px);
+	
+	img {
+		border-radius: 50%;
+		width: 100%;
+	}
+}
+
+
+.contact a {
+	color: white;
+}
+
+
+
+
+
+
+
+
+
