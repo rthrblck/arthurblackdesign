@@ -15,6 +15,7 @@
     "grunt-dev-update": "^0.x.x",
     "grunt-gh-pages": "^0.x.x",
     "grunt-sass": "~0.x.x",
+    "load-grunt-tasks": "^0.6.0",
     "node-sass": "~0.x.x"
   }
 }
