@@ -5,30 +5,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
-    sass: {
-      options: {
-        includePaths: ['bower_components/foundation/scss']
-      },
-
-      dist: {
-        options: {
-          outputStyle: 'expanded'
-        },
-        files: {
-          'css/tmp-unprefixed.css': 'scss/app.scss'
-        }        
-      }
-    },
-
-    autoprefixer: {
-      dist: {
-        files: {
-          'css/tmp.css': 'css/tmp-unprefixed.css'
-        }
-      }
-    },
-
     devUpdate: {
+
       main: {
         options: {
           updateType: 'prompt', 
@@ -38,20 +16,49 @@ module.exports = function(grunt) {
       }
     },
 
+    sass: {
+      
+      dist: {
+        options: {
+          outputStyle: 'expanded'
+        },
+
+        files: {
+          'build/tmp-unprefixed.css': 'src/scss/app.scss'
+        }        
+      }
+    },
+
+    autoprefixer: {
+      dist: {
+        files: {
+          'build/app.css': 'build/tmp-unprefixed.css'
+        }
+      }
+    },
+
+    concat: {
+
+      js: {
+        src : ['src/js/**/*.js'],
+        dest : 'build/app.js',
+      }
+    },
+
     connect: {
       devServer: {
         options: {
           port: 8000,
           livereload: 35729,
           hostname: 'localhost',
-          base: '.'
+          base: 'build/'
         }
       },
 
       testServer: {
         options: {
           port: 8000,
-          base: 'build/',
+          base: 'dist/',
           hostname: 'localhost'
         }
       },
@@ -59,61 +66,78 @@ module.exports = function(grunt) {
       livereload: {
         options: {
           livereload: true,
-          base: '.'
+          base: 'build/'
         }
       },
     },
 
     watch: {
+
       grunt: { 
         files: ['Gruntfile.js']
       },
 
       src: {
-        files: ['*.html', 'scss/**/*.scss', 'js/**/*.js'],
+        files: ['src/**/*'],
         options: { livereload: true }
       },
 
       styles: {
-        files: 'scss/**/*.scss',
+        files: 'src/scss/**/*.scss',
         tasks: ['sass', 'autoprefixer']
       },
-    },
 
-    concat: {
-      css: {
-        src: ['css/**/*.css'],
-        dest: 'css/app.css'
-      },
-
-      js: {
-        src : ['js/**/*.js'],
-        dest : 'js/app.js',
-      }
-    },
-
-    cssmin : {
-      css: {
-        src: 'css/app.css',
-        dest: 'build/css/app.css'
-      }
-    },
-
-    uglify : {
-      js: {
-        files: {
-          'build/js/app.js' : [ 'js/app.js' ]
-        }
+      index: {
+        files: 'src/index.html',
+        tasks: 'copy:index'
       }
     },
 
     clean: {
-      build: ['build/**/*']
+
+      dev1: 'build/**/*',
+
+      dev2: 'build/tmp-unprefixed.css',
+
+      test: 'dist/**/*'
+    },
+
+    cssmin : {
+
+      css: {
+        src: 'buildc/app.css',
+        dest: 'dist/app.css'
+      }
+    },
+
+    uglify : {
+
+      js: {
+        files: {
+          'build/app.js' : [ 'dist/app.js' ]
+        }
+      }
     },
 
     copy: {
-      main: {
-        files: [{expand: true, src: ['*.html'], dest: 'build/', filter: 'isFile'},]
+
+      dev: {
+        files: [
+        {expand: true, cwd: 'src/', src: ['index.html', 'img/**'], dest: 'build/'},
+        ]
+      },
+
+      index: {
+        files: [
+        {expand: true, cwd: 'src/', src: 'index.html', dest: 'build/'},
+
+        ]
+      },
+
+      test: {
+        files: [
+        {expand: true, src: 'build/index.html', dest: 'dist/', filter: 'isFile'},
+        ]
       }
     },
 
@@ -125,9 +149,9 @@ module.exports = function(grunt) {
 
         files: [{
           expand: true,
-          cwd: 'img/',
+          cwd: 'build/img/',
           src: ['**/*.png'],
-          dest: 'build/img/',
+          dest: 'dist/img/',
           ext: '.png'
         }]
       },
@@ -139,9 +163,9 @@ module.exports = function(grunt) {
 
         files: [{
           expand: true,
-          cwd: 'img/',
+          cwd: 'build/img/',
           src: ['**/*.jpg'],
-          dest: 'build/img/',
+          dest: 'dist/img/',
           ext: '.jpg'
         }
         ]
@@ -150,7 +174,7 @@ module.exports = function(grunt) {
 
     'gh-pages': {
       options: {
-        base: 'build'
+        base: 'dist'
       },
 
       src: ['**/*']
@@ -158,8 +182,8 @@ module.exports = function(grunt) {
 
   });
 
-grunt.registerTask('default', ['devUpdate','sass', 'autoprefixer', 'concat', 'connect:devServer', 'watch']);
-grunt.registerTask('test', ['clean', 'cssmin', 'uglify', 'copy', 'imagemin', 'connect:testServer:keepalive']);
+grunt.registerTask('default', ['clean:dev1', 'devUpdate', 'sass', 'autoprefixer', 'concat', 'copy:dev', 'clean:dev2', 'connect:devServer', 'watch']);
+grunt.registerTask('smash', ['clean:test', 'cssmin', 'uglify', 'copy:test', 'imagemin', 'connect:testServer:keepalive']);
 grunt.registerTask('deploy', ['gh-pages']);
 
 }
