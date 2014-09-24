@@ -7,7 +7,8 @@ Just my design portfolio. It isn't much to see, yet.
 After you've installed [Node](http://nodejs.org/), clone this repository and install dependencies:
 
 ```sh
-git clone https://github.com/rthrblack/arthurblackdesign && cd $_
+git clone https://github.com/rthrblck/arthurblackdesign
+cd arthurblackdesign
 npm install
 ```
 
