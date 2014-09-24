@@ -1,7 +1,16 @@
 {
   "name": "arthurblackdesign.com",
   "version": "0.0.1",
-  "devDependencies": {
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rthrblck/arthurblackdesign"
+  },
+  "scripts": {
+    "start": "grunt",
+    "test": "grunt test",
+    "deploy": "grunt deploy"
+  },
+  "dependencies": {
     "grunt": "~0.x.x",
     "grunt-autoprefixer": "^1.x.x",
     "grunt-contrib-clean": "^0.x.x",

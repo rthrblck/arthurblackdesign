@@ -2,3 +2,5 @@
 build
 node_modules
 .grunt
+npm-debug.log
+
