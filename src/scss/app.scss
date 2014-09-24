@@ -18,7 +18,7 @@
 	background-image: url(../img/simple_dashed.png);
 	background-repeat: repeat;
 	height: 100%;
-	padding-bottom: rem-calc(50px);
+	padding-bottom: calc(50px);
 	position: relative;
 	
 	.logo {
@@ -28,7 +28,7 @@
 
 .downArrow {
 	display: block;
-	max-width: rem-calc(25px);
+	max-width: calc(25px);
 	position: absolute;
 	top: 95%;
 	left: 50%;
@@ -56,7 +56,7 @@
 // PORTFOLIO
 
 .portfolio {
-	padding-bottom: rem-calc(40px);
+	padding-bottom: calc(40px);
 
 	.row {
 		@include maxWidthRow;
@@ -68,25 +68,25 @@
 }
 
 .portfolioPiece {
-	padding-top: rem-calc(40px);
+	padding-top: calc(40px);
 }
 
 .thumbnail {
 	background-image: url(../img/simple_dashed.png);
 	background-repeat: repeat;
-	padding-top: rem-calc(15px);
-	padding-bottom: rem-calc(15px);
+	padding-top: calc(15px);
+	padding-bottom: calc(15px);
 }
 
 .reveal {
 	background-image: url(../img/simple_dashed.png);
 	background-repeat: repeat;
 	color: white;
-	padding-top: rem-calc(40px);
+	padding-top: calc(40px);
 
 	.fullsize {
-		padding-top: rem-calc(20px);
-		padding-bottom: rem-calc(40px);
+		padding-top: calc(20px);
+		padding-bottom: calc(40px);
 	}
 }
 
@@ -98,16 +98,16 @@
 	background-image: url(../img/simple_dashed.png);
 	background-repeat: repeat;
 	color: white;
-	padding-top: rem-calc(40px);
-	padding-bottom: rem-calc(40px);
+	padding-top: calc(40px);
+	padding-bottom: calc(40px);
 
 	p {
-		margin-top: rem-calc(20px);
+		margin-top: calc(20px);
 	}
 }
 
 .headshot {
-	margin-top: rem-calc(20px);
+	margin-top: calc(20px);
 	
 	img {
 		border-radius: 50%;
