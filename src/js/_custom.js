@@ -51,11 +51,11 @@ $.fn.scrollTo = function( target, options, callback ){
   });
 }
 
-// SCROLL TO PORTFOLIO ON DOWN ARROW CLICK
+// SCROLL TO PORTFOLIO ON HEADER CLICK
 
 $(".header").click(function(event) {
   event.preventDefault()
-  $('body').scrollTo('.portfolio', {duration: 1000, offsetTop : '0'})
+  $('body').scrollTo('.portfolio', {duration: 1000, offsetTop : '50'})
 });
 
 

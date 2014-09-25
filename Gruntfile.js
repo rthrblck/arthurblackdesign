@@ -17,22 +17,23 @@ module.exports = function(grunt) {
     },
 
     sass: {
-      
+
       dist: {
         options: {
           outputStyle: 'expanded'
         },
 
         files: {
-          'build/tmp-unprefixed.css': 'src/scss/app.scss'
+          'tmp/tmp-unprefixed.css': 'src/scss/app.scss'
         }        
       }
     },
 
     autoprefixer: {
+
       dist: {
         files: {
-          'build/app.css': 'build/tmp-unprefixed.css'
+          'build/app.css': 'tmp/tmp-unprefixed.css'
         }
       }
     },
@@ -78,34 +79,41 @@ module.exports = function(grunt) {
       },
 
       src: {
-        files: ['src/**/*'],
+        files: ['build/**/*'],
         options: { livereload: true }
+      },
+
+      html: {
+        files: 'src/index.html',
+        tasks: 'copy:html'
       },
 
       styles: {
         files: 'src/scss/**/*.scss',
-        tasks: ['sass', 'autoprefixer']
+        tasks: ['sass', 'autoprefixer', 'clean:dev2']
       },
 
-      index: {
-        files: 'src/index.html',
-        tasks: 'copy:index'
+      js: {
+        files: 'src/js/**/*.js',
+        tasks: 'concat'
       }
+
+
     },
 
     clean: {
 
       dev1: 'build/**/*',
 
-      dev2: 'build/tmp-unprefixed.css',
+      dev2: 'tmp/',
 
-      test: 'dist/**/*'
+      smash: 'dist/**/*'
     },
 
     cssmin : {
 
       css: {
-        src: 'buildc/app.css',
+        src: 'build/app.css',
         dest: 'dist/app.css'
       }
     },
@@ -114,7 +122,7 @@ module.exports = function(grunt) {
 
       js: {
         files: {
-          'build/app.js' : [ 'dist/app.js' ]
+          'dist/app.js' : 'build/app.js'
         }
       }
     },
@@ -127,14 +135,13 @@ module.exports = function(grunt) {
         ]
       },
 
-      index: {
+      html: {
         files: [
         {expand: true, cwd: 'src/', src: 'index.html', dest: 'build/'},
-
         ]
       },
 
-      test: {
+      smash: {
         files: [
         {expand: true, src: 'build/index.html', dest: 'dist/', filter: 'isFile'},
         ]
@@ -142,6 +149,7 @@ module.exports = function(grunt) {
     },
 
     imagemin: {
+
       png: {
         options: {
           optimizationLevel: 7
@@ -173,6 +181,7 @@ module.exports = function(grunt) {
     },
 
     'gh-pages': {
+
       options: {
         base: 'dist'
       },
@@ -183,7 +192,7 @@ module.exports = function(grunt) {
   });
 
 grunt.registerTask('default', ['clean:dev1', 'devUpdate', 'sass', 'autoprefixer', 'concat', 'copy:dev', 'clean:dev2', 'connect:devServer', 'watch']);
-grunt.registerTask('smash', ['clean:test', 'cssmin', 'uglify', 'copy:test', 'imagemin', 'connect:testServer:keepalive']);
+grunt.registerTask('smash', ['clean:smash', 'cssmin', 'uglify', 'copy:test', 'imagemin', 'connect:testServer:keepalive']);
 grunt.registerTask('deploy', ['gh-pages']);
 
 }
